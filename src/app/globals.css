@@ -47,3 +47,16 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+/* Hide Netlify Toolbar & Powered by Netlify Badge */
+iframe[id*="netlify"],
+iframe[src*="netlify"],
+[class*="netlify-badge"],
+[id*="netlify-badge"],
+[data-netlify-badge],
+.netlify-badge {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
