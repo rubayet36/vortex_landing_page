@@ -29,23 +29,19 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Hide scrollbar (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
+/* Hide scrollbar (Firefox) */
+* {
+  scrollbar-width: none;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+/* Hide scrollbar (IE/Edge legacy) */
+* {
+  -ms-overflow-style: none;
 }
 
 /* Hide Netlify Toolbar & Powered by Netlify Badge */
