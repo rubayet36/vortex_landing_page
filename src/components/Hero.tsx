@@ -73,7 +73,6 @@ export default function Hero() {
           src="/assets/hero-video.mp4"
           loop
           playsInline
-          autoPlay
           className="w-full h-full object-cover object-center"
         />
         {/* Subtle Vignette & Gradient Overlays for contrast */}
