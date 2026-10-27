@@ -77,16 +77,45 @@ export default function Footer() {
 
         {/* ── BOTTOM SECTION: CONTACT & QUICK LINKS ─────────────────── */}
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 pt-10 border-t border-slate-800/80 items-end">
-          {/* LEFT: Confirmed Location */}
+          {/* LEFT: Confirmed Location & Google Maps Link */}
           <div className="lg:col-span-6 flex flex-col justify-between space-y-4">
             <div>
-              <h3 className="text-xl font-bold text-white mb-3 tracking-tight">Location</h3>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                {SITE_CONFIG.contact.address.neighborhood}, {SITE_CONFIG.contact.address.locality}, {SITE_CONFIG.contact.address.city}, {SITE_CONFIG.contact.address.country}
+              <h3 className="text-xl font-bold text-white mb-2 tracking-tight">Location &amp; Directions</h3>
+              <p className="text-slate-200 text-sm font-semibold leading-relaxed">
+                {SITE_CONFIG.contact.address.street}, {SITE_CONFIG.contact.address.neighborhood}, {SITE_CONFIG.contact.address.locality}, {SITE_CONFIG.contact.address.city} {SITE_CONFIG.contact.address.postalCode}
+              </p>
+              
+              <div className="mt-3">
+                <a
+                  href={SITE_CONFIG.googleBusinessProfile.shareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold text-[#0ae448] hover:text-[#08c73e] hover:underline transition-colors tracking-wide uppercase"
+                >
+                  <span>Find us on Google Maps</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Neighborhood Directions to our Banasree facility */}
+            <div className="bg-[#1c1f20] border border-slate-800 rounded-2xl p-4 text-xs text-slate-300 space-y-2">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
+                Getting to our Banasree Club
+              </span>
+              <p className="leading-relaxed">
+                • <strong className="text-white">From Rampura:</strong> Cross Rampura Bridge onto Banasree Main Road and turn into Block E, Road 2.
+              </p>
+              <p className="leading-relaxed">
+                • <strong className="text-white">From South Banasree:</strong> Head north along Banasree Main Road directly toward Block E.
+              </p>
+              <p className="leading-relaxed">
+                • <strong className="text-white">From Aftabnagar:</strong> Cross the connecting bridge into Banasree Block E in 5–10 minutes.
               </p>
             </div>
+
             <p className="text-xs text-slate-400">
-              Direct phone lines, building floor, and consultation appointments are provided upon registration.
+              Single dedicated facility in Banasree. Consultation appointments and workout sessions available daily.
             </p>
           </div>
 

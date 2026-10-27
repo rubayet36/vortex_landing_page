@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import Navbar from "./Navbar";
+import { SITE_CONFIG } from "@/lib/business-config";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -102,13 +103,27 @@ export default function Hero() {
               Join a results-driven fitness club in Banasree that empowers you to grow through expert guidance, dedicated women&apos;s hours, and premium recovery amenities.
             </p>
 
-            <div>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3.5 pt-1">
               <Link
                 href="/join"
                 className="inline-flex items-center justify-center bg-[#FF3B30] hover:bg-[#E02E24] text-white font-black px-10 py-3.5 rounded-full text-xs sm:text-sm tracking-wider uppercase transition-all duration-200 shadow-xl hover:shadow-red-500/40 active:scale-95 cursor-pointer"
               >
                 JOIN NOW
               </Link>
+
+              <a
+                href={SITE_CONFIG.googleBusinessProfile.shareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white/90 hover:text-white hover:bg-black/60 hover:border-white/35 transition-all text-xs font-medium group cursor-pointer shadow-sm"
+                title="View Vortex Fitness Club reviews on Google Maps"
+              >
+                <span className="text-amber-400 font-bold text-sm leading-none">★</span>
+                <span>
+                  Rated <strong className="text-white font-bold">{SITE_CONFIG.googleBusinessProfile.rating}/5</strong> from {SITE_CONFIG.googleBusinessProfile.reviewCount} Google reviews
+                </span>
+                <span className="text-white/60 group-hover:translate-x-0.5 transition-transform text-[11px] leading-none">↗</span>
+              </a>
             </div>
           </div>
         </div>

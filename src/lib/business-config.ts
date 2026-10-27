@@ -9,6 +9,11 @@
  * [CONFIRMED BY OWNER]:
  *   - Business Name: Vortex Fitness Club
  *   - Production Domain: https://vortexfitnessclub.xyz
+ *   - Physical Address (Confirmed via Google Business Profile Oct 27, 2026):
+ *     House No 48, Block E, Road No 2, Banasree, Rampura, Dhaka 1219
+ *   - Google Business Profile (Snapshot verified Oct 27, 2026):
+ *     Rating 4.8/5 from 86 Google reviews; Category: Gym
+ *     Share URL: https://share.google/q6QAlm0HMGaRQQqBc
  *   - Membership Pricing & Breakdown in BDT (Confirmed via packages_rows.sql):
  *     - Starter: ৳3,500 (Admission 2,000/- + Monthly 1,500/-)
  *     - Growth: ৳5,000 (Admission 2,000/- + Monthly 4,500/- - Discount 1,500/-)
@@ -16,14 +21,21 @@
  *     - Professional: ৳12,000 (Admission 2,000/- + Monthly 18,000/- - Discount 8,000/-)
  *
  * [AWAITING OWNER CONFIRMATION]:
- *   - Physical Address: "House 48 (2nd floor), Road 2, Block E, Banasree, Rampura, Dhaka"
- *     (Sourced from repository template; pending owner confirmation)
  *   - Contact Email: "info@vortexfitness.com"
  *     (Sourced from repository template; pending confirmation if active or needs @vortexfitnessclub.xyz)
  *   - Phone & WhatsApp: Omitted from public UI until owner provides real number
  *   - Operating & Female Hours: Not yet declared
  * ============================================================================
  */
+
+export interface GoogleBusinessProfileConfig {
+  shareUrl: string;
+  rating: number;
+  reviewCount: number;
+  category: string;
+  checkedDate: string;
+  confirmationStatus: "CONFIRMED";
+}
 
 export interface MembershipPlan {
   id: "starter" | "growth" | "advance" | "professional";
@@ -43,19 +55,29 @@ export const SITE_CONFIG = {
   description:
     "Fitness club in Banasree, Rampura with strength training equipment, dedicated female zones, aerobics & Zumba classes, and sauna recovery.",
   url: "https://vortexfitnessclub.xyz",
+  googleBusinessProfile: {
+    shareUrl: "https://share.google/q6QAlm0HMGaRQQqBc",
+    rating: 4.8,
+    reviewCount: 86,
+    category: "Gym",
+    checkedDate: "2026-10-27",
+    confirmationStatus: "CONFIRMED",
+  } as GoogleBusinessProfileConfig,
   contact: {
     email: "info@vortexfitness.com",
     emailConfirmationStatus: "AWAITING_OWNER_CONFIRMATION",
     address: {
-      street: "House 48 (2nd floor), Road 2, Block E",
+      street: "House No 48, Block E, Road No 2",
       neighborhood: "Banasree",
       locality: "Rampura",
+      postalCode: "1219",
       city: "Dhaka",
       country: "Bangladesh",
       countryCode: "BD",
       fullAddress:
-        "House 48 (2nd floor), Road 2, Block E, Banasree, Rampura, Dhaka, Bangladesh",
-      addressConfirmationStatus: "AWAITING_OWNER_CONFIRMATION",
+        "House No 48, Block E, Road No 2, Banasree, Rampura, Dhaka 1219, Bangladesh",
+      mapsUrl: "https://share.google/q6QAlm0HMGaRQQqBc",
+      addressConfirmationStatus: "CONFIRMED",
     },
   },
   plans: [

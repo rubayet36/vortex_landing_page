@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  // Confirmed details only: Unconfirmed specific street address ("House 48...") and email are omitted
-  // from public JSON-LD until explicitly verified by the owner.
+  // Verified business details only.
+  // Note: Per Google guidelines on self-serving reviews, aggregateRating/review markup is strictly omitted from LocalBusiness/ExerciseGym schemas.
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ExerciseGym",
@@ -32,10 +32,13 @@ export default function Home() {
     description: SITE_CONFIG.description,
     address: {
       "@type": "PostalAddress",
+      streetAddress: SITE_CONFIG.contact.address.street,
       addressLocality: SITE_CONFIG.contact.address.locality,
+      postalCode: SITE_CONFIG.contact.address.postalCode,
       addressRegion: SITE_CONFIG.contact.address.city,
       addressCountry: SITE_CONFIG.contact.address.countryCode,
     },
+    hasMap: SITE_CONFIG.googleBusinessProfile.shareUrl,
   };
 
   return (
