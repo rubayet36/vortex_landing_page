@@ -52,7 +52,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               activePage === "classes" ? "text-slate-950 font-bold" : "text-slate-600"
             }`}
           >
-            Classes
+            Facilities
           </Link>
           <Link
             href="/#contact"
@@ -103,7 +103,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               onClick={() => setMobileMenuOpen(false)}
               className="text-sm font-semibold text-slate-800 hover:text-[#FF3B30] py-1"
             >
-              Classes
+              Facilities
             </Link>
             <Link
               href="/#contact"

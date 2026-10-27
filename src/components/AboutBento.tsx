@@ -17,6 +17,9 @@ if (typeof window !== "undefined") {
 function useMagneticTilt(containerRef: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
     if (typeof window === "undefined") return;
+    // Only attach tilt on devices with a fine pointer (desktop mouse), skipping touch devices
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
     const container = containerRef.current;
     if (!container) return;
 
@@ -97,6 +100,7 @@ export default function AboutBento() {
   /* ── Scroll-in animations ── */
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const section = sectionRef.current;
     if (!section) return;
 

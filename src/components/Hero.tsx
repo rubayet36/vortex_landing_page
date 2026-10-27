@@ -1,104 +1,91 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Navbar from "./Navbar";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   useEffect(() => {
+    // Check if the user is on mobile, prefers reduced motion, or has data-saving enabled
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const isMobile = window.innerWidth < 768;
+    const connection = (navigator as any).connection;
+    const isSaveData = connection && connection.saveData;
+
+    // Only load the 7.86MB video on desktop displays without data-saver or reduced-motion
+    if (!prefersReducedMotion && !isMobile && !isSaveData) {
+      setShouldLoadVideo(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoadVideo) return;
     const video = videoRef.current;
     if (!video) return;
 
-    let soundPlayedCycle = false;
-
-    // Detect when video loops back to start and mute audio so sound only plays once
-    const handleTimeUpdate = () => {
-      if (!video) return;
-      if (video.currentTime > 2) {
-        soundPlayedCycle = true;
-      }
-      if (soundPlayedCycle && video.currentTime < 0.5) {
-        video.muted = true; // Mute audio after 1st cycle completes
-      }
-    };
-
-    const handleSeeked = () => {
-      if (video && soundPlayedCycle && video.currentTime < 1) {
-        video.muted = true;
-      }
-    };
-
-    video.addEventListener("timeupdate", handleTimeUpdate);
-    video.addEventListener("seeked", handleSeeked);
-
-    // Attempt initial playback
-    video.muted = false;
-    const playPromise = video.play();
-
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // If unmuted autoplay blocked by browser, play muted and unmute once on user gesture
-        video.muted = true;
-        video.play().catch(() => {});
-
-        const enableAudio = () => {
-          if (videoRef.current) {
-            videoRef.current.muted = false;
-          }
-          window.removeEventListener("click", enableAudio);
-          window.removeEventListener("touchstart", enableAudio);
-          window.removeEventListener("keydown", enableAudio);
-        };
-
-        window.addEventListener("click", enableAudio, { once: true });
-        window.addEventListener("touchstart", enableAudio, { once: true });
-        window.addEventListener("keydown", enableAudio, { once: true });
-      });
-    }
-
-    return () => {
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-      video.removeEventListener("seeked", handleSeeked);
-    };
-  }, []);
+    // Video must strictly remain muted as decorative background
+    video.muted = true;
+    video.defaultMuted = true;
+    video.play().catch(() => {
+      // Autoplay silently handled if blocked by browser policy
+    });
+  }, [shouldLoadVideo]);
 
   return (
     <section className="relative w-full bg-[#0A0D14] rounded-b-[40px] sm:rounded-b-[56px] lg:rounded-b-[64px] overflow-hidden min-h-[640px] sm:min-h-[720px] lg:min-h-[840px] flex flex-col justify-between shadow-2xl">
-      {/* Background Video Element with Audio */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <video
-          ref={videoRef}
-          src="/assets/hero-video.mp4"
-          loop
-          playsInline
-          className="w-full h-full object-cover object-center"
+      {/* Background Media with Lightweight Poster Fallback */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-[#0A0D14]">
+        {/* Poster image displayed immediately to prevent blank background & save mobile data */}
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-700"
+          style={{
+            backgroundImage: "url('/assets/hero-poster.webp')",
+          }}
         />
+
+        {/* Video only conditionally mounted on desktop devices */}
+        {shouldLoadVideo && (
+          <video
+            ref={videoRef}
+            src="/assets/hero-video.mp4"
+            poster="/assets/hero-poster.webp"
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+        )}
+
         {/* Subtle Vignette & Gradient Overlays for contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-[#0A0D14]/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0D14]/70 via-transparent to-[#0A0D14]/80" />
-        <div className="absolute inset-0 bg-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-[#0A0D14]/40 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0D14]/70 via-transparent to-[#0A0D14]/80 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
       </div>
 
-      {/* Sticky Top Notch Navbar: Follows scroll throughout the page */}
+      {/* Sticky Top Notch Navbar */}
       <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
         <Navbar activePage="home" />
       </div>
 
       {/* Hero Content: Pushed to the Outer Sides */}
       <div className="relative z-20 w-full px-6 sm:px-12 md:px-16 lg:px-20 xl:px-24 pt-24 sm:pt-28 pb-12 sm:pb-16 flex-1 flex flex-col justify-between">
-        {/* Top Left: 1200+ Members (No headshot images) */}
+        {/* Top Left: Verified Community Focus */}
         <div className="flex items-center space-x-2.5 max-w-md">
           <span className="w-2.5 h-2.5 rounded-full bg-[#FF3B30] animate-pulse inline-block flex-shrink-0" />
           <p className="text-xs sm:text-sm text-slate-200 font-medium leading-snug drop-shadow-md">
-            Over <span className="text-[#FF3B30] font-bold">1200+ members</span> strong and growing
+            Dedicated training atmosphere &amp; modern facilities
             <br />
-            with us every day!
+            in Banasree, Rampura
           </p>
         </div>
 
-        {/* Bottom Section: Left Title + Right Community CTA pushed to the far sides */}
+        {/* Bottom Section: Left Title + Right Community CTA */}
         <div className="pt-28 sm:pt-36 flex flex-col lg:flex-row lg:items-end justify-between gap-10">
           {/* Far Left: Headline */}
           <div className="max-w-xl xl:max-w-2xl">
@@ -109,11 +96,10 @@ export default function Hero() {
             </h1>
           </div>
 
-          {/* Far Right: Community Description & JOIN NOW CTA */}
+          {/* Far Right: Description & JOIN NOW CTA */}
           <div className="max-w-md lg:ml-auto flex flex-col items-start space-y-5">
             <p className="text-slate-200 text-sm sm:text-base leading-relaxed drop-shadow-md">
-              Join a results-driven community that empowers you to grow through shared goals,
-              support, and motivation every step of the way.
+              Join a results-driven fitness club in Banasree that empowers you to grow through expert guidance, dedicated women&apos;s hours, and premium recovery amenities.
             </p>
 
             <div>

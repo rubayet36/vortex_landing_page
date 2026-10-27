@@ -224,7 +224,7 @@ export default function HiddenAdminDashboard() {
                 <input
                   type="email"
                   required
-                  placeholder="admin@vortexfitness.com"
+                  placeholder="admin@example.com"
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
                   className="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-[#00A86B] transition-all font-medium"

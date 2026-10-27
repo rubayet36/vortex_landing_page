@@ -20,28 +20,13 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-plus-jakarta-sans), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
-}
-
-/* Hide scrollbar (Chrome, Safari, Edge) */
-::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar (Firefox) */
-* {
-  scrollbar-width: none;
-}
-
-/* Hide scrollbar (IE/Edge legacy) */
-* {
-  -ms-overflow-style: none;
 }
 
 /* Hide Netlify Toolbar & Powered by Netlify Badge */
