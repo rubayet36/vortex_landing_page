@@ -10,16 +10,13 @@ export default function Hero() {
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   useEffect(() => {
-    // Check if the user is on mobile, prefers reduced motion, or has data-saving enabled
+    // Check if user prefers reduced motion
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const isMobile = window.innerWidth < 768;
-    const connection = (navigator as any).connection;
-    const isSaveData = connection && connection.saveData;
 
-    // Only load the 7.86MB video on desktop displays without data-saver or reduced-motion
-    if (!prefersReducedMotion && !isMobile && !isSaveData) {
+    // Load background video across both mobile and desktop unless reduced-motion is requested
+    if (!prefersReducedMotion) {
       setShouldLoadVideo(true);
     }
   }, []);

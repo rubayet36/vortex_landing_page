@@ -26,14 +26,13 @@ export default function JourneyMask() {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const isDesktop = window.innerWidth >= 1024;
 
-    setIsInteractiveWipe(!prefersReducedMotion && isDesktop);
+    // Enable interactive transformation wipe on all devices unless user prefers reduced motion
+    setIsInteractiveWipe(!prefersReducedMotion);
 
     const handleResize = () => {
-      const desktop = window.innerWidth >= 1024;
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      setIsInteractiveWipe(desktop && !reduced);
+      setIsInteractiveWipe(!reduced);
     };
 
     window.addEventListener("resize", handleResize);
@@ -234,21 +233,20 @@ export default function JourneyMask() {
           {/* BEFORE tag */}
           <div
             ref={beforeTagRef}
-            className="absolute z-20 pointer-events-none"
-            style={{ top: "50%", left: "4vw", transform: "translateY(-50%)" }}
+            className="absolute z-20 pointer-events-none top-[19%] sm:top-1/2 left-[4vw] sm:-translate-y-1/2"
           >
             <div className="flex flex-col items-start gap-1">
               <span
-                className="text-[11px] font-black tracking-[0.28em] uppercase px-3 py-1 rounded-full"
+                className="text-[10px] sm:text-[11px] font-black tracking-[0.25em] sm:tracking-[0.28em] uppercase px-2.5 sm:px-3 py-1 rounded-full"
                 style={{
-                  background: "rgba(0,0,0,0.18)",
+                  background: "rgba(0,0,0,0.25)",
                   color: "#fff",
                   backdropFilter: "blur(6px)",
                 }}
               >
                 BEFORE
               </span>
-              <p className="text-white/80 text-sm font-semibold mt-1 leading-snug drop-shadow-md">
+              <p className="text-white/90 text-xs sm:text-sm font-semibold mt-0.5 sm:mt-1 leading-snug drop-shadow-md">
                 Starting out,<br />building consistency.
               </p>
             </div>
@@ -257,12 +255,11 @@ export default function JourneyMask() {
           {/* AFTER tag */}
           <div
             ref={afterTagRef}
-            className="absolute z-20 pointer-events-none"
-            style={{ top: "50%", right: "4vw", transform: "translateY(-50%)", opacity: 0 }}
+            className="absolute z-20 pointer-events-none top-[19%] sm:top-1/2 right-[4vw] sm:-translate-y-1/2 opacity-0"
           >
             <div className="flex flex-col items-end gap-1">
               <span
-                className="text-[11px] font-black tracking-[0.28em] uppercase px-3 py-1 rounded-full"
+                className="text-[10px] sm:text-[11px] font-black tracking-[0.25em] sm:tracking-[0.28em] uppercase px-2.5 sm:px-3 py-1 rounded-full"
                 style={{
                   background: "#FF3B30",
                   color: "#fff",
@@ -272,7 +269,7 @@ export default function JourneyMask() {
                 AFTER
               </span>
               <p
-                className="text-right text-sm font-semibold mt-1 leading-snug"
+                className="text-right text-xs sm:text-sm font-semibold mt-0.5 sm:mt-1 leading-snug"
                 style={{ color: "#333" }}
               >
                 Strong, conditioned,<br />empowered.
@@ -281,10 +278,10 @@ export default function JourneyMask() {
           </div>
 
           {/* Heading - Opacity is naturally 1 in SSR to preserve crawler indexing */}
-          <div className="absolute top-0 inset-x-0 z-20 flex flex-col items-center pt-10 pointer-events-none">
+          <div className="absolute top-0 inset-x-0 z-20 flex flex-col items-center pt-6 sm:pt-10 pointer-events-none px-4">
             <div ref={headingRef}>
               <span
-                className="block text-[11px] font-black tracking-[0.3em] uppercase text-center mb-3"
+                className="block text-[10px] sm:text-[11px] font-black tracking-[0.25em] sm:tracking-[0.3em] uppercase text-center mb-1.5 sm:mb-3"
                 style={{ color: "#FF3B30" }}
               >
                 The Transformation
@@ -292,9 +289,9 @@ export default function JourneyMask() {
               <h2
                 className="text-center font-black uppercase leading-none"
                 style={{
-                  fontSize: "clamp(2.4rem, 6.5vw, 5.5rem)",
+                  fontSize: "clamp(1.65rem, 5.5vw, 5.5rem)",
                   letterSpacing: "-0.02em",
-                  WebkitTextStroke: "2px #1a1a1a",
+                  WebkitTextStroke: "1.5px #1a1a1a",
                   color: "transparent",
                   paintOrder: "stroke fill",
                 }}

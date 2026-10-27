@@ -13,7 +13,7 @@ if (typeof window !== "undefined") {
 export default function Facilities() {
   const trackRef = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
-  const [isDesktopPinned, setIsDesktopPinned] = useState(false);
+  const [isPinned, setIsPinned] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -21,18 +21,13 @@ export default function Facilities() {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const isDesktop = window.innerWidth >= 1024;
 
-    if (!prefersReducedMotion && isDesktop) {
-      setIsDesktopPinned(true);
-    } else {
-      setIsDesktopPinned(false);
-    }
+    // Enable horizontal pinned scroll animation across both mobile and desktop
+    setIsPinned(!prefersReducedMotion);
 
     const handleResize = () => {
-      const desktop = window.innerWidth >= 1024;
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      setIsDesktopPinned(desktop && !reduced);
+      setIsPinned(!reduced);
     };
 
     window.addEventListener("resize", handleResize);
@@ -40,7 +35,7 @@ export default function Facilities() {
   }, []);
 
   useEffect(() => {
-    if (!isDesktopPinned) return;
+    if (!isPinned) return;
     const track = trackRef.current;
     const strip = stripRef.current;
     if (!track || !strip) return;
@@ -83,20 +78,20 @@ export default function Facilities() {
       ctx.revert();
       if (track) track.style.height = "auto";
     };
-  }, [isDesktopPinned]);
+  }, [isPinned]);
 
   return (
     <div
       id="facilities"
       ref={trackRef}
       className={`relative bg-[#0a0a0a] ${
-        isDesktopPinned ? "" : "py-16 sm:py-20"
+        isPinned ? "" : "py-16 sm:py-20"
       }`}
       style={{ overscrollBehavior: "none" }}
     >
       <div
         className={
-          isDesktopPinned
+          isPinned
             ? "sticky top-0 h-screen overflow-hidden"
             : "w-full overflow-hidden"
         }
@@ -104,43 +99,43 @@ export default function Facilities() {
         <div
           ref={stripRef}
           className={
-            isDesktopPinned
+            isPinned
               ? "flex flex-nowrap h-full will-change-transform"
               : "flex flex-col lg:flex-row gap-8 px-4 sm:px-8 max-w-7xl mx-auto"
           }
           style={{
-            width: isDesktopPinned ? "max-content" : "100%",
+            width: isPinned ? "max-content" : "100%",
           }}
         >
           {/* ── Intro panel ─────────────────────────────── */}
           <div
             className={`flex-shrink-0 flex flex-col justify-center bg-[#0a0a0a] ${
-              isDesktopPinned
-                ? "h-full px-16"
+              isPinned
+                ? "h-full px-6 sm:px-12 lg:px-16"
                 : "w-full mb-6 px-2 text-center sm:text-left"
             }`}
             style={
-              isDesktopPinned
-                ? { width: "40vw", minWidth: "420px" }
+              isPinned
+                ? { width: "min(88vw, 460px)" }
                 : undefined
             }
           >
             <span className="text-xs font-bold tracking-[0.22em] text-[#FF3B30] uppercase mb-4 block">
               PREMIUM AMENITIES
             </span>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.08] tracking-tight mb-6">
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.08] tracking-tight mb-4 sm:mb-6">
               Take A Tour
               <br />
               Of Our
               <br />
               Facilities
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base leading-relaxed max-w-sm">
+            <p className="text-slate-400 text-xs sm:text-base leading-relaxed max-w-sm">
               World-class amenities designed to support every stage of your fitness journey in Banasree, Rampura.
             </p>
 
-            {isDesktopPinned && (
-              <div className="flex gap-2 mt-10">
+            {isPinned && (
+              <div className="flex gap-2 mt-6 sm:mt-10">
                 {SITE_CONFIG.facilities.map((_, i) => (
                   <span
                     key={i}
@@ -154,7 +149,7 @@ export default function Facilities() {
           {/* ── Facility Cards ───────────────────────────── */}
           <div
             className={
-              isDesktopPinned
+              isPinned
                 ? "flex flex-nowrap h-full"
                 : "grid grid-cols-1 sm:grid-cols-2 gap-6 w-full"
             }
@@ -163,23 +158,23 @@ export default function Facilities() {
               <div
                 key={item.title}
                 className={
-                  isDesktopPinned
-                    ? "flex-shrink-0 h-full flex items-center p-6"
+                  isPinned
+                    ? "flex-shrink-0 h-full flex items-center p-3 sm:p-5 lg:p-6"
                     : "w-full"
                 }
                 style={
-                  isDesktopPinned
-                    ? { width: "34vw", minWidth: "360px" }
+                  isPinned
+                    ? { width: "min(85vw, 420px)" }
                     : undefined
                 }
               >
-                <div className="relative w-full h-[380px] sm:h-[440px] lg:h-[82%] rounded-3xl overflow-hidden shadow-2xl group cursor-pointer bg-slate-900 border border-slate-800/60">
+                <div className="relative w-full h-[65vh] sm:h-[75vh] lg:h-[82%] rounded-3xl overflow-hidden shadow-2xl group cursor-pointer bg-slate-900 border border-slate-800/60">
                   {/* Next.js Optimized Image */}
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 85vw, (max-width: 1200px) 50vw, 34vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
 
@@ -210,11 +205,11 @@ export default function Facilities() {
             ))}
           </div>
 
-          {/* ── End spacer (Desktop only) ─────────────────── */}
-          {isDesktopPinned && (
+          {/* ── End spacer ─────────────────── */}
+          {isPinned && (
             <div
-              className="flex-shrink-0 h-full flex items-center justify-center bg-[#0a0a0a]"
-              style={{ width: "16vw", minWidth: "160px" }}
+              className="flex-shrink-0 h-full flex items-center justify-center bg-[#0a0a0a] px-6 sm:px-12"
+              style={{ width: "min(40vw, 200px)" }}
             >
               <span
                 className="text-white/20 text-xs font-semibold tracking-[0.3em] uppercase"

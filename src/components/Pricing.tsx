@@ -17,7 +17,7 @@ export default function Pricing() {
   const fillRef = useRef<HTMLDivElement>(null);
   const slidesRef = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isDesktopPinned, setIsDesktopPinned] = useState(false);
+  const [isPinned, setIsPinned] = useState(false);
 
   const [plans, setPlans] = useState<MembershipPlan[]>(SITE_CONFIG.plans);
 
@@ -45,14 +45,13 @@ export default function Pricing() {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const isDesktop = window.innerWidth >= 1024;
 
-    setIsDesktopPinned(!prefersReducedMotion && isDesktop);
+    // Enable pinned interactive stack animation on both mobile and desktop
+    setIsPinned(!prefersReducedMotion);
 
     const handleResize = () => {
-      const desktop = window.innerWidth >= 1024;
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      setIsDesktopPinned(desktop && !reduced);
+      setIsPinned(!reduced);
     };
 
     window.addEventListener("resize", handleResize);
@@ -60,7 +59,7 @@ export default function Pricing() {
   }, []);
 
   useEffect(() => {
-    if (!isDesktopPinned) return;
+    if (!isPinned) return;
     const pinSection = pinSectionRef.current;
     const fill = fillRef.current;
     if (!pinSection) return;
@@ -96,10 +95,10 @@ export default function Pricing() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [isDesktopPinned, plans.length]);
+  }, [isPinned, plans.length]);
 
   useEffect(() => {
-    if (!isDesktopPinned) return;
+    if (!isPinned) return;
     slidesRef.current.forEach((slide, idx) => {
       if (!slide) return;
       if (idx === activeIndex) {
@@ -122,7 +121,7 @@ export default function Pricing() {
         });
       }
     });
-  }, [activeIndex, isDesktopPinned]);
+  }, [activeIndex, isPinned]);
 
   const scrollToPlan = (index: number) => {
     setActiveIndex(index);
@@ -155,15 +154,39 @@ export default function Pricing() {
           </p>
         </div>
 
-        {/* ── DESKTOP PINNED VIEW ── */}
-        {isDesktopPinned ? (
+        {/* ── PINNED INTERACTIVE VIEW (Mobile & Desktop) ── */}
+        {isPinned ? (
           <div
             ref={pinSectionRef}
-            className="pin-section min-h-screen w-full flex items-center justify-center py-12"
+            className="pin-section min-h-screen w-full flex items-center justify-center py-8 sm:py-12"
           >
-            <div className="content w-full flex items-center justify-between gap-16 lg:gap-24 relative">
-              {/* LEFT SIDE: Package Names & Durations */}
-              <div className="relative pl-6 flex-shrink-0">
+            <div className="content w-full flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 lg:gap-24 relative">
+              {/* Mobile Package Indicator Pills */}
+              <div className="flex lg:hidden flex-wrap items-center justify-center gap-2 w-full max-w-sm pb-1">
+                {plans.map((plan, idx) => {
+                  const isActive = activeIndex === idx;
+                  return (
+                    <button
+                      key={plan.id}
+                      type="button"
+                      onClick={() => scrollToPlan(idx)}
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+                        isActive
+                          ? "bg-[#0ae448] text-black shadow-lg shadow-[#0ae448]/30 scale-105"
+                          : "bg-white/10 text-slate-300 hover:text-white hover:bg-white/15"
+                      }`}
+                    >
+                      <span>{plan.name}</span>
+                      <span className={`text-[10px] ${isActive ? "text-black/80 font-semibold" : "text-slate-400"}`}>
+                        ({plan.duration})
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Desktop Package Names & Progress Line */}
+              <div className="hidden lg:block relative pl-6 flex-shrink-0">
                 <div className="absolute top-0 left-0 bottom-0 w-[2px] bg-slate-800" />
                 <div
                   ref={fillRef}
@@ -201,8 +224,8 @@ export default function Pricing() {
                 </ul>
               </div>
 
-              {/* RIGHT SIDE: Pricing Cards */}
-              <div className="right relative w-[360px] sm:w-[400px] h-[540px] flex items-center justify-center flex-shrink-0">
+              {/* Pricing Cards Stack */}
+              <div className="right relative w-full max-w-[340px] sm:max-w-[390px] h-[490px] sm:h-[540px] flex items-center justify-center flex-shrink-0">
                 {plans.map((plan, idx) => {
                   const isActive = activeIndex === idx;
                   return (
@@ -211,7 +234,7 @@ export default function Pricing() {
                       ref={(el) => {
                         slidesRef.current[idx] = el;
                       }}
-                      className="slide center absolute inset-0 w-full h-full rounded-[32px] bg-white p-7 sm:p-8 flex flex-col justify-between text-left shadow-2xl border border-slate-100 text-slate-900 transition-shadow duration-300"
+                      className="slide center absolute inset-0 w-full h-full rounded-[28px] sm:rounded-[32px] bg-white p-6 sm:p-8 flex flex-col justify-between text-left shadow-2xl border border-slate-100 text-slate-900 transition-shadow duration-300"
                       style={{
                         opacity: idx === 0 ? 1 : 0,
                         zIndex: idx === 0 ? 20 : 1,
@@ -226,33 +249,33 @@ export default function Pricing() {
                           {plan.tagline}
                         </p>
 
-                        <div className="mt-5 mb-5 flex items-baseline">
-                          <span className="text-lg font-bold text-slate-400 mr-0.5">৳</span>
-                          <span className="text-4xl sm:text-5xl font-black text-slate-950 tracking-tight">
+                        <div className="mt-4 sm:mt-5 mb-4 sm:mb-5 flex items-baseline">
+                          <span className="text-base sm:text-lg font-bold text-slate-400 mr-0.5">৳</span>
+                          <span className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight">
                             {plan.priceBDT.toLocaleString()}
                           </span>
-                          <span className="text-xs font-bold text-slate-500 ml-1.5 uppercase">
+                          <span className="text-[11px] sm:text-xs font-bold text-slate-500 ml-1.5 uppercase">
                             BDT / {plan.duration}
                           </span>
                         </div>
 
                         <Link
                           href={`/join?plan=${plan.id}`}
-                          className="w-full block text-center py-3.5 px-4 rounded-full text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900 bg-slate-100 hover:bg-[#FF3B30] hover:text-white transition-all duration-200 shadow-sm"
+                          className="w-full block text-center py-3 sm:py-3.5 px-4 rounded-full text-xs sm:text-sm font-extrabold uppercase tracking-wider text-slate-900 bg-slate-100 hover:bg-[#FF3B30] hover:text-white transition-all duration-200 shadow-sm"
                         >
                           Select {plan.name}
                         </Link>
                       </div>
 
                       {/* Verified Gym Benefits */}
-                      <div className="bg-[#F8F9FA] rounded-[22px] p-5 space-y-2.5 mt-4">
+                      <div className="bg-[#F8F9FA] rounded-[20px] sm:rounded-[22px] p-4 sm:p-5 space-y-2 sm:space-y-2.5 mt-3 sm:mt-4">
                         <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase block mb-1">
                           Included Facilities
                         </span>
                         {plan.features.map((feat, fIdx) => (
                           <div
                             key={fIdx}
-                            className="flex items-center gap-2.5 text-xs font-medium text-slate-700"
+                            className="flex items-center gap-2 sm:gap-2.5 text-xs font-medium text-slate-700"
                           >
                             <span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center text-[9px] font-bold text-emerald-700 flex-shrink-0">
                               ✓
@@ -268,7 +291,7 @@ export default function Pricing() {
             </div>
           </div>
         ) : (
-          /* ── MOBILE / REDUCED-MOTION RESPONSIVE GRID ── */
+          /* ── REDUCED-MOTION ACCESSIBILITY GRID ── */
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
             {plans.map((plan) => (
               <div
