@@ -29,6 +29,20 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Hide default browser scrollbar while keeping smooth scrolling functionality */
+html,
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
+}
+
+::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+  width: 0px;
+  height: 0px;
+  background: transparent;
+}
+
 /* Hide Netlify Toolbar & Powered by Netlify Badge */
 iframe[id*="netlify"],
 iframe[src*="netlify"],

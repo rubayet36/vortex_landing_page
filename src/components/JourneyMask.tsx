@@ -69,7 +69,7 @@ export default function JourneyMask() {
       if (beforeTagRef.current) {
         gsap.to(beforeTagRef.current, {
           opacity: 0,
-          x: -20,
+          scale: 0.92,
           ease: "power2.in",
           scrollTrigger: {
             trigger: track,
@@ -83,10 +83,10 @@ export default function JourneyMask() {
       if (afterTagRef.current) {
         gsap.fromTo(
           afterTagRef.current,
-          { opacity: 0, x: 20 },
+          { opacity: 0, scale: 0.92 },
           {
             opacity: 1,
-            x: 0,
+            scale: 1,
             ease: "power2.out",
             scrollTrigger: {
               trigger: track,
@@ -142,7 +142,7 @@ export default function JourneyMask() {
                   "radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, rgba(0,0,0,0.22) 100%)",
               }}
             />
-            <div className="relative h-full w-full max-h-[88vh] flex items-end justify-center">
+            <div className="relative h-full w-full max-h-[70vh] sm:max-h-[74vh] lg:max-h-[72vh] flex items-end justify-center pb-2 sm:pb-4">
               <Image
                 src="/assets/journey-before.png"
                 alt="Before fitness transformation - starting workout routine"
@@ -171,7 +171,7 @@ export default function JourneyMask() {
                   "radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, rgba(0,0,0,0.15) 100%)",
               }}
             />
-            <div className="relative h-full w-full max-h-[88vh] flex items-end justify-center">
+            <div className="relative h-full w-full max-h-[70vh] sm:max-h-[74vh] lg:max-h-[72vh] flex items-end justify-center pb-2 sm:pb-4">
               <Image
                 src="/assets/journey-after.png"
                 alt="After fitness transformation - conditioned physique"
@@ -230,84 +230,45 @@ export default function JourneyMask() {
             </div>
           </div>
 
-          {/* BEFORE tag */}
-          <div
-            ref={beforeTagRef}
-            className="absolute z-20 pointer-events-none top-[19%] sm:top-1/2 left-[4vw] sm:-translate-y-1/2"
-          >
-            <div className="flex flex-col items-start gap-1">
-              <span
-                className="text-[10px] sm:text-[11px] font-black tracking-[0.25em] sm:tracking-[0.28em] uppercase px-2.5 sm:px-3 py-1 rounded-full"
-                style={{
-                  background: "rgba(0,0,0,0.25)",
-                  color: "#fff",
-                  backdropFilter: "blur(6px)",
-                }}
-              >
-                BEFORE
-              </span>
-              <p className="text-white/90 text-xs sm:text-sm font-semibold mt-0.5 sm:mt-1 leading-snug drop-shadow-md">
-                Starting out,<br />building consistency.
-              </p>
-            </div>
-          </div>
-
-          {/* AFTER tag */}
-          <div
-            ref={afterTagRef}
-            className="absolute z-20 pointer-events-none top-[19%] sm:top-1/2 right-[4vw] sm:-translate-y-1/2 opacity-0"
-          >
-            <div className="flex flex-col items-end gap-1">
-              <span
-                className="text-[10px] sm:text-[11px] font-black tracking-[0.25em] sm:tracking-[0.28em] uppercase px-2.5 sm:px-3 py-1 rounded-full"
-                style={{
-                  background: "#FF3B30",
-                  color: "#fff",
-                  boxShadow: "0 4px 14px rgba(255,59,48,0.4)",
-                }}
-              >
-                AFTER
-              </span>
-              <p
-                className="text-right text-xs sm:text-sm font-semibold mt-0.5 sm:mt-1 leading-snug"
-                style={{ color: "#333" }}
-              >
-                Strong, conditioned,<br />empowered.
-              </p>
-            </div>
-          </div>
-
-          {/* Heading - Opacity is naturally 1 in SSR to preserve crawler indexing */}
-          <div className="absolute top-0 inset-x-0 z-20 flex flex-col items-center pt-6 sm:pt-10 pointer-events-none px-4">
-            <div ref={headingRef}>
-              <span
-                className="block text-[10px] sm:text-[11px] font-black tracking-[0.25em] sm:tracking-[0.3em] uppercase text-center mb-1.5 sm:mb-3"
-                style={{ color: "#FF3B30" }}
-              >
+          {/* Heading - Placed cleanly below fixed navbar */}
+          <div className="absolute top-0 inset-x-0 z-20 flex flex-col items-center pt-24 sm:pt-28 lg:pt-24 pointer-events-none px-4">
+            <div ref={headingRef} className="flex flex-col items-center text-center">
+              <span className="block text-[11px] sm:text-xs font-black tracking-[0.25em] sm:tracking-[0.3em] uppercase text-center mb-1.5 sm:mb-2 text-[#FF3B30]">
                 The Transformation
               </span>
-              <h2
-                className="text-center font-black uppercase leading-none"
-                style={{
-                  fontSize: "clamp(1.65rem, 5.5vw, 5.5rem)",
-                  letterSpacing: "-0.02em",
-                  WebkitTextStroke: "1.5px #1a1a1a",
-                  color: "transparent",
-                  paintOrder: "stroke fill",
-                }}
-              >
-                Fat&nbsp;
-                <span
-                  style={{
-                    WebkitTextStroke: "0px",
-                    color: "#FF3B30",
-                    WebkitTextFillColor: "#FF3B30",
-                  }}
-                >
-                  To&nbsp;Fit
-                </span>
-                &nbsp;Journey
+              <h2 className="text-center font-black uppercase tracking-tight text-3xl sm:text-5xl lg:text-6xl text-slate-950 leading-tight drop-shadow-sm">
+                Fat <span className="text-[#FF3B30]">To Fit</span> Journey
               </h2>
+            </div>
+          </div>
+
+          {/* BEFORE Stage Tag: Centered on mobile gap, floating in open left margin on desktop */}
+          <div
+            ref={beforeTagRef}
+            className="absolute z-20 pointer-events-none top-[180px] sm:top-[210px] lg:top-1/2 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:-translate-y-1/2 lg:left-8 xl:left-16 w-[290px] lg:w-auto"
+          >
+            <div className="flex flex-row lg:flex-col items-center lg:items-start gap-2 lg:gap-1.5 px-3.5 py-1.5 lg:p-4 rounded-full lg:rounded-2xl bg-black/40 backdrop-blur-md border border-white/20 text-white shadow-xl">
+              <span className="text-[10px] font-black tracking-widest uppercase bg-white/20 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                BEFORE
+              </span>
+              <p className="text-xs sm:text-sm font-semibold text-white/95 leading-snug drop-shadow-md whitespace-nowrap lg:whitespace-normal">
+                Starting out, building consistency
+              </p>
+            </div>
+          </div>
+
+          {/* AFTER Stage Tag: Centered on mobile gap, floating in open right margin on desktop */}
+          <div
+            ref={afterTagRef}
+            className="absolute z-20 pointer-events-none top-[180px] sm:top-[210px] lg:top-1/2 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:-translate-y-1/2 lg:left-auto lg:right-8 xl:right-16 w-[290px] lg:w-auto opacity-0"
+          >
+            <div className="flex flex-row lg:flex-col items-center lg:items-end gap-2 lg:gap-1.5 px-3.5 py-1.5 lg:p-4 rounded-full lg:rounded-2xl bg-[#FF3B30] text-white shadow-2xl shadow-red-500/40 border border-white/20">
+              <span className="text-[10px] font-black tracking-widest uppercase bg-black/25 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                AFTER
+              </span>
+              <p className="text-xs sm:text-sm font-black text-white leading-snug drop-shadow-sm whitespace-nowrap lg:whitespace-normal lg:text-right">
+                Strong, conditioned &amp; empowered
+              </p>
             </div>
           </div>
         </div>

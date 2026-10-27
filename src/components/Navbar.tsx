@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import logoImg from "@/assets/logo.png";
 
 interface NavbarProps {
   activePage?: "home" | "about" | "classes" | "contact";
@@ -37,11 +39,19 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
         {/* Center Brand Logo */}
         <Link href="/" className="flex items-center justify-center space-x-2.5 group">
-          <span className="text-[#FF3B30] font-black text-lg select-none">|</span>
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-[22.5%] overflow-hidden bg-black ring-1 ring-black/10 shadow-sm flex items-center justify-center flex-shrink-0">
+            <Image
+              src={logoImg}
+              alt="Vortex Fitness Club Logo"
+              width={28}
+              height={28}
+              priority
+              className="w-full h-full object-cover"
+            />
+          </div>
           <span className="font-black tracking-tight text-slate-950 text-base sm:text-lg uppercase whitespace-nowrap">
             VORTEX FITNESS CLUB
           </span>
-          <span className="text-[#FF3B30] font-black text-lg select-none">|</span>
         </Link>
 
         {/* Right Navigation Links & Join CTA */}

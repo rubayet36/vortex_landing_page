@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import logoImg from "@/assets/logo.png";
 import {
   Users,
   Package,
@@ -190,13 +192,13 @@ export default function HiddenAdminDashboard() {
     return (
       <div className="min-h-screen bg-[#07090E] text-slate-100 flex items-center justify-center p-4 relative overflow-hidden font-sans">
         {/* Background Ambient Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#00A86B]/15 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FF3B30]/15 rounded-full blur-[140px] pointer-events-none" />
 
         <div className="w-full max-w-md bg-[#0f1420] border border-slate-800 rounded-3xl p-8 sm:p-10 shadow-2xl relative z-10 space-y-6">
           {/* Header */}
           <div className="text-center space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-[#00A86B] text-white font-black text-xl flex items-center justify-center mx-auto shadow-lg shadow-[#00A86B]/30 mb-4">
-              V
+            <div className="w-14 h-14 rounded-[22.5%] overflow-hidden bg-black flex items-center justify-center mx-auto shadow-xl shadow-red-500/25 border border-white/10 mb-4">
+              <Image src={logoImg} alt="Vortex Logo" width={56} height={56} className="w-full h-full object-cover" />
             </div>
             <h1 className="text-2xl font-black tracking-tight text-white uppercase">
               VORTEX ADMIN PORTAL
@@ -227,7 +229,7 @@ export default function HiddenAdminDashboard() {
                   placeholder="admin@example.com"
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-[#00A86B] transition-all font-medium"
+                  className="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-[#FF3B30] transition-all font-medium"
                 />
               </div>
             </div>
@@ -244,7 +246,7 @@ export default function HiddenAdminDashboard() {
                   placeholder="••••••••"
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-[#00A86B] transition-all font-medium"
+                  className="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-[#FF3B30] transition-all font-medium"
                 />
               </div>
             </div>
@@ -252,7 +254,7 @@ export default function HiddenAdminDashboard() {
             <button
               type="submit"
               disabled={isLoggingIn}
-              className="w-full bg-[#00A86B] hover:bg-[#048254] text-white font-extrabold py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#00A86B]/20 flex items-center justify-center gap-2 cursor-pointer mt-2"
+              className="w-full bg-[#FF3B30] hover:bg-[#E02E24] text-white font-extrabold py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#FF3B30]/25 flex items-center justify-center gap-2 cursor-pointer mt-2"
             >
               {isLoggingIn ? (
                 <RefreshCw size={16} className="animate-spin" />
@@ -282,7 +284,7 @@ export default function HiddenAdminDashboard() {
     return (
       <div className="min-h-screen bg-[#07090E] text-white flex items-center justify-center font-sans">
         <div className="flex flex-col items-center gap-3">
-          <RefreshCw size={24} className="animate-spin text-[#00A86B]" />
+          <RefreshCw size={24} className="animate-spin text-[#FF3B30]" />
           <span className="text-xs font-bold text-slate-400 tracking-wider uppercase">Loading Admin Portal...</span>
         </div>
       </div>
@@ -303,8 +305,8 @@ export default function HiddenAdminDashboard() {
               href="/"
               className="flex items-center gap-2 text-slate-900 font-black text-base sm:text-lg tracking-tight group"
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#00A86B] text-white flex items-center justify-center font-extrabold text-xs sm:text-sm shadow-md shadow-[#00A86B]/20">
-                V
+              <div className="w-8 h-8 rounded-[22.5%] overflow-hidden bg-black flex items-center justify-center shadow-md shadow-red-500/20 border border-slate-200/80 flex-shrink-0">
+                <Image src={logoImg} alt="Vortex Logo" width={32} height={32} className="w-full h-full object-cover" />
               </div>
               <span className="uppercase tracking-tight text-slate-900 text-xs sm:text-sm md:text-base">Vortex Admin</span>
             </Link>
@@ -315,7 +317,7 @@ export default function HiddenAdminDashboard() {
                 onClick={() => setActiveTab("overview")}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                   activeTab === "overview"
-                    ? "bg-[#00A86B] text-white shadow-sm"
+                    ? "bg-[#FF3B30] text-white shadow-sm"
                     : "text-slate-600 hover:text-slate-900"
                 }`}
               >
@@ -326,7 +328,7 @@ export default function HiddenAdminDashboard() {
                 onClick={() => setActiveTab("users")}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                   activeTab === "users"
-                    ? "bg-[#00A86B] text-white shadow-sm"
+                    ? "bg-[#FF3B30] text-white shadow-sm"
                     : "text-slate-600 hover:text-slate-900"
                 }`}
               >
@@ -337,7 +339,7 @@ export default function HiddenAdminDashboard() {
                 onClick={() => setActiveTab("packages")}
                 className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                   activeTab === "packages"
-                    ? "bg-[#00A86B] text-white shadow-sm"
+                    ? "bg-[#FF3B30] text-white shadow-sm"
                     : "text-slate-600 hover:text-slate-900"
                 }`}
               >
@@ -353,7 +355,7 @@ export default function HiddenAdminDashboard() {
               className="p-2 sm:p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-all"
               title="Refresh Data"
             >
-              <RefreshCw size={15} className={isLoading ? "animate-spin text-[#00A86B]" : ""} />
+              <RefreshCw size={15} className={isLoading ? "animate-spin text-[#FF3B30]" : ""} />
             </button>
 
             {registrations.length > 0 && (
@@ -385,7 +387,7 @@ export default function HiddenAdminDashboard() {
             onClick={() => setActiveTab("overview")}
             className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
               activeTab === "overview"
-                ? "bg-[#00A86B] text-white shadow-sm"
+                ? "bg-[#FF3B30] text-white shadow-sm"
                 : "bg-white text-slate-600 border border-slate-200"
             }`}
           >
@@ -395,7 +397,7 @@ export default function HiddenAdminDashboard() {
             onClick={() => setActiveTab("users")}
             className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
               activeTab === "users"
-                ? "bg-[#00A86B] text-white shadow-sm"
+                ? "bg-[#FF3B30] text-white shadow-sm"
                 : "bg-white text-slate-600 border border-slate-200"
             }`}
           >
@@ -405,7 +407,7 @@ export default function HiddenAdminDashboard() {
             onClick={() => setActiveTab("packages")}
             className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
               activeTab === "packages"
-                ? "bg-[#00A86B] text-white shadow-sm"
+                ? "bg-[#FF3B30] text-white shadow-sm"
                 : "bg-white text-slate-600 border border-slate-200"
             }`}
           >
@@ -424,7 +426,7 @@ export default function HiddenAdminDashboard() {
               onClick={() => setActiveTab("overview")}
               className={`p-3 rounded-2xl transition-all ${
                 activeTab === "overview"
-                  ? "bg-[#00A86B] text-white shadow-md shadow-[#00A86B]/30"
+                  ? "bg-[#FF3B30] text-white shadow-md shadow-[#FF3B30]/30"
                   : "text-slate-400 hover:text-slate-700 hover:bg-slate-100"
               }`}
               title="Overview"
@@ -436,7 +438,7 @@ export default function HiddenAdminDashboard() {
               onClick={() => setActiveTab("users")}
               className={`p-3 rounded-2xl transition-all ${
                 activeTab === "users"
-                  ? "bg-[#00A86B] text-white shadow-md shadow-[#00A86B]/30"
+                  ? "bg-[#FF3B30] text-white shadow-md shadow-[#FF3B30]/30"
                   : "text-slate-400 hover:text-slate-700 hover:bg-slate-100"
               }`}
               title="Registered Users"
@@ -448,7 +450,7 @@ export default function HiddenAdminDashboard() {
               onClick={() => setActiveTab("packages")}
               className={`p-3 rounded-2xl transition-all ${
                 activeTab === "packages"
-                  ? "bg-[#00A86B] text-white shadow-md shadow-[#00A86B]/30"
+                  ? "bg-[#FF3B30] text-white shadow-md shadow-[#FF3B30]/30"
                   : "text-slate-400 hover:text-slate-700 hover:bg-slate-100"
               }`}
               title="Package Pricing"
@@ -484,7 +486,7 @@ export default function HiddenAdminDashboard() {
 
             <div className="flex items-center gap-2">
               <div className="bg-white px-3.5 py-2 rounded-full border border-slate-200 text-xs font-semibold text-slate-700 flex items-center gap-2 shadow-sm">
-                <Calendar size={13} className="text-[#00A86B]" />
+                <Calendar size={13} className="text-[#FF3B30]" />
                 <span>{new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
               </div>
             </div>
@@ -497,8 +499,8 @@ export default function HiddenAdminDashboard() {
               {/* Top KPI Cards Grid */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6">
                 
-                {/* Green Hero KPI Card */}
-                <div className="md:col-span-6 lg:col-span-4 bg-gradient-to-br from-[#00A86B] to-[#048254] rounded-3xl p-5 sm:p-6 text-white shadow-xl shadow-[#00A86B]/20 flex flex-col justify-between min-h-[190px]">
+                {/* Red Hero KPI Card */}
+                <div className="md:col-span-6 lg:col-span-4 bg-gradient-to-br from-[#FF3B30] to-[#B91C1C] rounded-3xl p-5 sm:p-6 text-white shadow-xl shadow-[#FF3B30]/25 flex flex-col justify-between min-h-[190px]">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-xs font-semibold opacity-80 uppercase tracking-wider">
@@ -528,7 +530,7 @@ export default function HiddenAdminDashboard() {
                       <h4 className="text-sm font-bold text-slate-900">Application Activity</h4>
                       <p className="text-xs text-slate-500 font-medium">Monthly trend</p>
                     </div>
-                    <span className="bg-emerald-50 text-[#00A86B] text-xs font-bold px-2.5 py-1 rounded-full">
+                    <span className="bg-red-50 text-[#FF3B30] text-xs font-bold px-2.5 py-1 rounded-full">
                       Active
                     </span>
                   </div>
@@ -546,8 +548,8 @@ export default function HiddenAdminDashboard() {
                         <div
                           className={`w-full rounded-full transition-all ${
                             bar.active
-                              ? "bg-[#00A86B] shadow-md shadow-[#00A86B]/30"
-                              : "bg-emerald-100"
+                              ? "bg-[#FF3B30] shadow-md shadow-[#FF3B30]/30"
+                              : "bg-red-100"
                           }`}
                           style={{ height: bar.height }}
                         />
@@ -598,7 +600,7 @@ export default function HiddenAdminDashboard() {
                   </div>
                   <button
                     onClick={() => setActiveTab("users")}
-                    className="text-xs font-bold text-[#00A86B] hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-[#FF3B30] hover:underline flex items-center gap-1"
                   >
                     View All <ArrowUpRight size={14} />
                   </button>
@@ -616,7 +618,7 @@ export default function HiddenAdminDashboard() {
                     <Link
                       href="/join"
                       target="_blank"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#00A86B] bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200 hover:bg-emerald-100 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF3B30] bg-red-50 px-4 py-2 rounded-full border border-red-200 hover:bg-red-100 transition-colors"
                     >
                       Test Join Now Form <ArrowUpRight size={13} />
                     </Link>
@@ -664,7 +666,7 @@ export default function HiddenAdminDashboard() {
                             <td className="py-3.5 px-4 text-right">
                               <button
                                 onClick={() => handleStatusChange(r.id, "approved")}
-                                className="text-xs font-bold text-[#00A86B] hover:underline"
+                                className="text-xs font-bold text-[#FF3B30] hover:underline"
                               >
                                 Approve
                               </button>
@@ -699,7 +701,7 @@ export default function HiddenAdminDashboard() {
                       placeholder="Search name, email..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-full pl-9 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#00A86B]"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-full pl-9 pr-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#FF3B30]"
                     />
                   </div>
 
@@ -818,12 +820,12 @@ export default function HiddenAdminDashboard() {
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-bold uppercase tracking-widest text-[#00A86B]">
+                        <span className="text-xs font-bold uppercase tracking-widest text-[#FF3B30]">
                           {pkg.duration}
                         </span>
                         <button
                           onClick={() => handleEditPackage(pkg)}
-                          className="px-3 py-1.5 bg-slate-100 hover:bg-[#00A86B] text-slate-700 hover:text-white rounded-full transition-all text-xs font-bold flex items-center gap-1.5"
+                          className="px-3 py-1.5 bg-slate-100 hover:bg-[#FF3B30] text-slate-700 hover:text-white rounded-full transition-all text-xs font-bold flex items-center gap-1.5"
                         >
                           <Edit size={13} /> Edit
                         </button>
@@ -846,7 +848,7 @@ export default function HiddenAdminDashboard() {
                         <ul className="space-y-2 text-xs text-slate-600 font-medium">
                           {pkg.features.map((f, idx) => (
                             <li key={idx} className="flex items-start gap-2">
-                              <span className="text-[#00A86B] font-bold">✓</span>
+                              <span className="text-[#FF3B30] font-bold">✓</span>
                               <span>{f}</span>
                             </li>
                           ))}
@@ -867,7 +869,7 @@ export default function HiddenAdminDashboard() {
         <button
           onClick={() => setActiveTab("overview")}
           className={`flex flex-col items-center gap-1 text-[10px] font-bold transition-all ${
-            activeTab === "overview" ? "text-[#00A86B]" : "text-slate-400"
+            activeTab === "overview" ? "text-[#FF3B30]" : "text-slate-400"
           }`}
         >
           <LayoutDashboard size={18} />
@@ -877,7 +879,7 @@ export default function HiddenAdminDashboard() {
         <button
           onClick={() => setActiveTab("users")}
           className={`flex flex-col items-center gap-1 text-[10px] font-bold transition-all ${
-            activeTab === "users" ? "text-[#00A86B]" : "text-slate-400"
+            activeTab === "users" ? "text-[#FF3B30]" : "text-slate-400"
           }`}
         >
           <Users size={18} />
@@ -887,7 +889,7 @@ export default function HiddenAdminDashboard() {
         <button
           onClick={() => setActiveTab("packages")}
           className={`flex flex-col items-center gap-1 text-[10px] font-bold transition-all ${
-            activeTab === "packages" ? "text-[#00A86B]" : "text-slate-400"
+            activeTab === "packages" ? "text-[#FF3B30]" : "text-slate-400"
           }`}
         >
           <Package size={18} />
@@ -925,7 +927,7 @@ export default function HiddenAdminDashboard() {
                   type="text"
                   value={editingPkg.name}
                   onChange={(e) => setEditingPkg({ ...editingPkg, name: e.target.value })}
-                  className="w-full bg-[#141b2b] border border-slate-700/80 rounded-xl px-4 py-2.5 sm:py-3 text-white focus:outline-none focus:border-[#0ae448] font-medium"
+                  className="w-full bg-[#141b2b] border border-slate-700/80 rounded-xl px-4 py-2.5 sm:py-3 text-white focus:outline-none focus:border-[#FF3B30] font-medium"
                 />
               </div>
 
@@ -940,7 +942,7 @@ export default function HiddenAdminDashboard() {
                   onChange={(e) =>
                     setEditingPkg({ ...editingPkg, price: Number(e.target.value) })
                   }
-                  className="w-full bg-[#141b2b] border border-slate-700/80 rounded-xl px-4 py-2.5 sm:py-3 text-white focus:outline-none focus:border-[#0ae448] font-medium text-base"
+                  className="w-full bg-[#141b2b] border border-slate-700/80 rounded-xl px-4 py-2.5 sm:py-3 text-white focus:outline-none focus:border-[#FF3B30] font-medium text-base"
                 />
               </div>
 
@@ -953,7 +955,7 @@ export default function HiddenAdminDashboard() {
                   type="text"
                   value={editingPkg.duration}
                   onChange={(e) => setEditingPkg({ ...editingPkg, duration: e.target.value })}
-                  className="w-full bg-[#141b2b] border border-slate-700/80 rounded-xl px-4 py-2.5 sm:py-3 text-white focus:outline-none focus:border-[#0ae448] font-medium"
+                  className="w-full bg-[#141b2b] border border-slate-700/80 rounded-xl px-4 py-2.5 sm:py-3 text-white focus:outline-none focus:border-[#FF3B30] font-medium"
                 />
               </div>
 
@@ -966,7 +968,7 @@ export default function HiddenAdminDashboard() {
                   type="text"
                   value={editingPkg.tagline}
                   onChange={(e) => setEditingPkg({ ...editingPkg, tagline: e.target.value })}
-                  className="w-full bg-[#141b2b] border border-slate-700/80 rounded-xl px-4 py-2.5 sm:py-3 text-white focus:outline-none focus:border-[#0ae448] font-medium"
+                  className="w-full bg-[#141b2b] border border-slate-700/80 rounded-xl px-4 py-2.5 sm:py-3 text-white focus:outline-none focus:border-[#FF3B30] font-medium"
                 />
               </div>
 
@@ -979,7 +981,7 @@ export default function HiddenAdminDashboard() {
                   rows={5}
                   value={pkgFeaturesInput}
                   onChange={(e) => setPkgFeaturesInput(e.target.value)}
-                  className="w-full bg-[#141b2b] border border-slate-700/80 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#0ae448] font-mono leading-relaxed text-xs"
+                  className="w-full bg-[#141b2b] border border-slate-700/80 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF3B30] font-mono leading-relaxed text-xs"
                 />
               </div>
             </div>
@@ -994,7 +996,7 @@ export default function HiddenAdminDashboard() {
               </button>
               <button
                 onClick={handleSavePackage}
-                className="px-6 py-2.5 sm:py-3 rounded-xl bg-[#0ae448] hover:bg-[#08c93f] text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-[#0ae448]/20 flex items-center gap-2 cursor-pointer transition-all"
+                className="px-6 py-2.5 sm:py-3 rounded-xl bg-[#FF3B30] hover:bg-[#E02E24] text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-[#FF3B30]/20 flex items-center gap-2 cursor-pointer transition-all"
               >
                 <Save size={16} /> SAVE PACKAGE
               </button>

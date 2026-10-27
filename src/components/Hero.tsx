@@ -7,55 +7,42 @@ import { SITE_CONFIG } from "@/lib/business-config";
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
     // Check if user prefers reduced motion
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    // Load background video across both mobile and desktop unless reduced-motion is requested
-    if (!prefersReducedMotion) {
-      setShouldLoadVideo(true);
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mediaQuery.matches) {
+      setPrefersReducedMotion(true);
+      if (videoRef.current) {
+        videoRef.current.pause();
+      }
     }
   }, []);
-
-  useEffect(() => {
-    if (!shouldLoadVideo) return;
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Video must strictly remain muted as decorative background
-    video.muted = true;
-    video.defaultMuted = true;
-    video.play().catch(() => {
-      // Autoplay silently handled if blocked by browser policy
-    });
-  }, [shouldLoadVideo]);
 
   return (
     <section className="relative w-full bg-[#0A0D14] rounded-b-[40px] sm:rounded-b-[56px] lg:rounded-b-[64px] overflow-hidden min-h-[640px] sm:min-h-[720px] lg:min-h-[840px] flex flex-col justify-between shadow-2xl">
       {/* Background Media with Lightweight Poster Fallback */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-[#0A0D14]">
-        {/* Poster image displayed immediately to prevent blank background & save mobile data */}
+        {/* Clean poster image displayed immediately without any text */}
         <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-700"
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
           style={{
             backgroundImage: "url('/assets/hero-poster.webp')",
           }}
         />
 
-        {/* Video only conditionally mounted on desktop devices */}
-        {shouldLoadVideo && (
+        {/* Video mounted immediately with native autoPlay for instant playback */}
+        {!prefersReducedMotion && (
           <video
             ref={videoRef}
             src="/assets/hero-video.mp4"
             poster="/assets/hero-poster.webp"
+            autoPlay
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
         )}

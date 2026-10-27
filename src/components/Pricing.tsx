@@ -143,7 +143,7 @@ export default function Pricing() {
       <div className="max-w-7xl mx-auto px-6 sm:px-12">
         {/* Section Header */}
         <div className="text-center max-w-xl mx-auto mb-12 sm:mb-16">
-          <span className="text-xs font-bold tracking-[0.25em] text-[#0ae448] uppercase block mb-3">
+          <span className="text-xs font-bold tracking-[0.25em] text-[#FF3B30] uppercase block mb-3">
             MEMBERSHIP PACKAGES
           </span>
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
@@ -172,12 +172,12 @@ export default function Pricing() {
                       onClick={() => scrollToPlan(idx)}
                       className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
                         isActive
-                          ? "bg-[#0ae448] text-black shadow-lg shadow-[#0ae448]/30 scale-105"
+                          ? "bg-[#FF3B30] text-white shadow-lg shadow-[#FF3B30]/30 scale-105"
                           : "bg-white/10 text-slate-300 hover:text-white hover:bg-white/15"
                       }`}
                     >
                       <span>{plan.name}</span>
-                      <span className={`text-[10px] ${isActive ? "text-black/80 font-semibold" : "text-slate-400"}`}>
+                      <span className={`text-[10px] ${isActive ? "text-white/80 font-semibold" : "text-slate-400"}`}>
                         ({plan.duration})
                       </span>
                     </button>
@@ -190,7 +190,7 @@ export default function Pricing() {
                 <div className="absolute top-0 left-0 bottom-0 w-[2px] bg-slate-800" />
                 <div
                   ref={fillRef}
-                  className="fill absolute top-0 left-0 w-[2px] h-full bg-[#0ae448] origin-top-left"
+                  className="fill absolute top-0 left-0 w-[2px] h-full bg-[#FF3B30] origin-top-left"
                 />
 
                 <ul className="list space-y-8 select-none">
@@ -204,7 +204,7 @@ export default function Pricing() {
                       >
                         <span
                           className={`text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight transition-colors duration-300 ${
-                            isActive ? "text-[#0ae448]" : "text-[#fffce1] hover:text-white"
+                            isActive ? "text-[#FF3B30]" : "text-[#fffce1] hover:text-white"
                           }`}
                         >
                           {plan.name}
@@ -212,7 +212,7 @@ export default function Pricing() {
                         <span
                           className={`text-xs sm:text-sm font-medium tracking-widest uppercase mt-1 transition-colors duration-300 ${
                             isActive
-                              ? "text-[#0ae448]/80"
+                              ? "text-[#FF3B30]/80"
                               : "text-slate-500 group-hover:text-slate-400"
                           }`}
                         >
