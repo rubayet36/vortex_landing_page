@@ -36,15 +36,20 @@ export default function Hero() {
         {!prefersReducedMotion && (
           <video
             ref={videoRef}
-            src="/assets/hero-video.mp4"
             poster="/assets/hero-poster.webp"
             autoPlay
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             className="absolute inset-0 w-full h-full object-cover object-center"
-          />
+          >
+            <source
+              src="https://pub-b81698486cb3441aaac2d6789999813d.r2.dev/Hero-Video.webm"
+              type="video/webm"
+            />
+            <source src="/assets/hero-video.mp4" type="video/mp4" />
+          </video>
         )}
 
         {/* Subtle Vignette & Gradient Overlays for contrast */}
