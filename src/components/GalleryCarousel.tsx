@@ -1,8 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import type React from "react";
+import { useEffect, useState } from "react";
 
-const FlexCarousel = dynamic(() => import("./FlexCarousel"), { ssr: false });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const FlexCarousel = dynamic(() => import("./FlexCarousel"), { ssr: false }) as React.ComponentType<Record<string, any>>;
 
 const GYM_IMAGES = [
   {
@@ -68,14 +71,23 @@ const GYM_IMAGES = [
 ];
 
 export default function GalleryCarousel() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <section
       id="gallery"
-      className="w-full bg-white py-16 sm:py-20 lg:py-24"
+      className="w-full bg-white py-12 sm:py-20 lg:py-24"
       aria-label="Gym Gallery"
     >
       {/* Section Header */}
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-12">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12">
         <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#FF3B30] mb-3">
           Our Space
         </p>
@@ -84,21 +96,24 @@ export default function GalleryCarousel() {
           <br />
           <span className="text-slate-400 font-light italic">Fitness Club</span>
         </h2>
-        <p className="mt-4 text-slate-500 text-sm sm:text-base max-w-xl">
+        <p className="mt-3 text-slate-500 text-sm sm:text-base max-w-xl">
           Drag, scroll, or click any card to explore our premium facilities —
           from heavy iron to recovery and everything in between.
         </p>
       </div>
 
-      {/* Carousel */}
-      <div style={{ width: "100%", height: "520px", position: "relative" }}>
+      {/* Carousel — height is responsive: 380px mobile / scales up to 520px desktop */}
+      <div
+        className="w-full relative overflow-hidden"
+        style={{ height: isMobile ? "380px" : "clamp(380px, 45vw, 520px)" }}
+      >
         <FlexCarousel
           items={GYM_IMAGES}
           preset="liquid"
           intro="rise"
-          cardHeight={0.72}
-          gap={14}
-          radius={18}
+          cardHeight={isMobile ? 0.62 : 0.72}
+          gap={isMobile ? 8 : 14}
+          radius={isMobile ? 12 : 18}
           squeeze={0.18}
           focusOnClick
           captions
