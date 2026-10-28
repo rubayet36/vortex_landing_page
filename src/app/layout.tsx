@@ -54,11 +54,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/assets/logo.png", sizes: "472x472", type: "image/png" },
+      { url: "/icon.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon.png", sizes: "16x16", type: "image/png" },
+      { url: "/icon.png", sizes: "192x192", type: "image/png" },
     ],
     apple: [
-      { url: "/assets/logo.png", sizes: "472x472", type: "image/png" },
+      { url: "/icon.png", sizes: "180x180", type: "image/png" },
     ],
+    shortcut: "/icon.png",
   },
 };
 
