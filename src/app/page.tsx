@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import AboutBento from "@/components/AboutBento";
 import Facilities from "@/components/Facilities";
 import JourneyMask from "@/components/JourneyMask";
+import GalleryCarousel from "@/components/GalleryCarousel";
 import Pricing from "@/components/Pricing";
 import Footer from "@/components/Footer";
 import { SITE_CONFIG } from "@/lib/business-config";
@@ -54,6 +55,7 @@ export default function Home() {
         <AboutBento />
         <Facilities />
         <JourneyMask />
+        <GalleryCarousel />
         <Pricing />
         <Footer />
       </main>
