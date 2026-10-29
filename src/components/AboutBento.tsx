@@ -243,7 +243,7 @@ export default function AboutBento() {
           >
             <div className="card-glow absolute inset-0 z-10 pointer-events-none rounded-[28px] opacity-0" />
             <Image
-              src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
+              src="https://pub-b81698486cb3441aaac2d6789999813d.r2.dev/images/Musta.jpeg"
               alt="Athlete performing lat pulldown"
               fill
               className="object-cover object-center transition-transform duration-500"
@@ -302,7 +302,7 @@ export default function AboutBento() {
           >
             <div className="card-glow absolute inset-0 z-10 pointer-events-none rounded-[28px] opacity-0" />
             <Image
-              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=80"
+              src="https://pub-b81698486cb3441aaac2d6789999813d.r2.dev/images/Musta2.jpeg"
               alt="Athlete training on parallel dip bars"
               fill
               className="object-cover object-center transition-transform duration-500"
@@ -320,7 +320,7 @@ export default function AboutBento() {
           >
             <div className="card-glow absolute inset-0 z-10 pointer-events-none rounded-[28px] opacity-0" />
             <Image
-              src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&auto=format&fit=crop&q=80"
+              src="https://pub-b81698486cb3441aaac2d6789999813d.r2.dev/images/Shayon.jpeg"
               alt="Weightlifting athletes in gym"
               fill
               className="object-cover object-center transition-transform duration-500"
